@@ -29,6 +29,7 @@ jobs:
           $release_name = "ccx-desktop-win64-v$ccx_ver"
           $release_folder = "Release"
           $qt5_cmake = "${{ env.Qt5_Dir }}/lib/cmake" -replace '[/]', '\\'
+          Remove-Item cryptonote -Recurse -ErrorAction Ignore
           git clone https://github.com/ConcealNetwork/conceal-core cryptonote
           $filecontent = Get-Content CMakeLists.txt
           $filecontent -replace '^set\(CMAKE_PREFIX_PATH.+',"set(CMAKE_PREFIX_PATH `"$($qt5_cmake)`")" | Set-Content CMakeLists.txt

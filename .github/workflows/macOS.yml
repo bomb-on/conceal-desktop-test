@@ -25,6 +25,7 @@ jobs:
           lang_folder="/Contents/Resources/languages"
           brew install gcc boost@1.60
           brew link boost@1.60 --force
+          rm -rf cryptonote
           git clone https://github.com/ConcealNetwork/conceal-core.git cryptonote
           mkdir -p "$build_folder"
           cd "$build_folder"
