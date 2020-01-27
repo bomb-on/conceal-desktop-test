@@ -23,6 +23,7 @@ find_package(Qt5Gui REQUIRED)
 find_package(Qt5Widgets REQUIRED)
 find_package(Qt5Network REQUIRED)
 
+set(Boost_NO_BOOST_CMAKE ON)
 set(Boost_USE_STATIC_LIBS ON)
 if(WIN32)
   set(Boost_USE_STATIC_RUNTIME OFF)
@@ -59,7 +60,7 @@ set(CRYPTONOTE_SOURCES
   cryptonote/external/miniupnpc/upnpcommands.c
   cryptonote/external/miniupnpc/upnpreplyparse.c
   cryptonote/src/Common/Base58.cpp
-  cryptonote/src/Common/Base64.cpp
+  cryptonote/src/Common/Base64.cpp  
   cryptonote/src/Common/CommandLine.cpp
   cryptonote/src/Common/Util.cpp
   cryptonote/src/Common/StringTools.cpp
@@ -198,11 +199,11 @@ elseif (UNIX)
     file(GLOB_RECURSE OBJC_SOURCES src/*.mm)
     set(SOURCES ${SOURCES} ${OBJC_SOURCES})
     set(PLATFORM_DIR OSX)
-    set(MACOSX_BUNDLE_INFO_STRING "Cryptonote GUI wallet")
-    set(MACOSX_BUNDLE_LONG_VERSION_STRING "${VERSION_VERSION}.${VERSION_MINOR}.${VERSION_PATCH}")
-    set(MACOSX_BUNDLE_BUNDLE_NAME CryptonoteWallet)
-    set(MACOSX_BUNDLE_SHORT_VERSION_STRING "${VERSION_VERSION}.${VERSION_MINOR}.${VERSION_PATCH}")
-    set(MACOSX_BUNDLE_BUNDLE_VERSION "$${VERSION_VERSION}.${VERSION_MINOR}.${VERSION_PATCH}")
+    set(MACOSX_BUNDLE_BUNDLE_NAME ${CN_PROJECT_NAME})
+    set(MACOSX_BUNDLE_INFO_STRING ${CN_VERSION})
+    set(MACOSX_BUNDLE_LONG_VERSION_STRING ${CN_VERSION})
+    set(MACOSX_BUNDLE_SHORT_VERSION_STRING ${CN_VERSION})
+    set(MACOSX_BUNDLE_BUNDLE_VERSION ${CN_VERSION})
 
     find_package(Qt5PrintSupport REQUIRED)
 
