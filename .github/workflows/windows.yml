@@ -32,12 +32,11 @@ jobs:
           git clone https://github.com/ConcealNetwork/conceal-core cryptonote
           $filecontent = Get-Content CMakeLists.txt
           $filecontent -replace '^set\(CMAKE_PREFIX_PATH.+',"set(CMAKE_PREFIX_PATH `"$($qt5_cmake)`")" | Set-Content CMakeLists.txt
-          mkdir "$build_folder"
-          cd "$build_folder"
-          mkdir "$release_folder"
-          cd "$release_folder"
+
+          New-Item "$build_folder\$release_folder" -ItemType Dir
+          cd "$build_folder\$release_folder"
           Write-Host "1"
-          Start-Process xcopy -ArgumentList "${{ env.Qt5_Dir }}/bin/*.dll",".","/E","/y" -NoNewWindow -Wait
+          Start-Process xcopy -ArgumentList "${{ env.Qt5_Dir }}\bin\*.dll",".","/E","/y" -NoNewWindow -Wait
           Write-Host "2"
 
           # cp "${{ env.Qt5_Dir }}/bin/*.dll" .
