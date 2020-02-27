@@ -36,7 +36,10 @@ jobs:
           cd "$build_folder"
           mkdir "$release_folder"
           cd "$release_folder"
+          Write-Host "1"
           Start-Process xcopy -ArgumentList "${{ env.Qt5_Dir }}/bin/*.dll",".","/E","/y" -NoNewWindow -Wait
+          Write-Host "2"
+
           # cp "${{ env.Qt5_Dir }}/bin/*.dll" .
           # cp -recurse "${{ env.Qt5_Dir }}/plugins/*" .
           # cp -recurse "${{ env.Qt5_Dir }}/qml/*" .
@@ -44,7 +47,9 @@ jobs:
           cd ..
 
           Start-Process cmake -ArgumentList "-G ""Visual Studio 15 2017 Win64""",".." -NoNewWindow -Wait
+          Write-Host "3"
           Start-Process msbuild -ArgumentList "CONCEAL-GUI.sln","/p:Configuration=Release" -NoNewWindow -Wait
+          Write-Host "4"
           
           dir
           Start-Process "$qt5_bin/windeployqt.exe" -ArgumentList "CONCEAL-GUI.exe" -NoNewWindow -Wait
