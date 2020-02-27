@@ -21,6 +21,8 @@ jobs:
       - name: Build
         shell: powershell
         id: build
+        env:
+          BOOST_ROOT: ""
         run: |
           $build_folder = "build"
           $release_folder = "Release"
