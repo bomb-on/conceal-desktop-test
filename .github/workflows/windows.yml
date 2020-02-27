@@ -34,17 +34,18 @@ jobs:
           $filecontent -replace '^set\(CMAKE_PREFIX_PATH.+',"set(CMAKE_PREFIX_PATH `"$($qt5_cmake)`")" | Set-Content CMakeLists.txt
 
           New-Item "$build_folder\$release_folder" -ItemType Dir
-          cd "$build_folder\$release_folder"
+          # cd "$build_folder\$release_folder"
 
           # Start-Process xcopy -ArgumentList "${{ env.Qt5_Dir }}/bin/*.dll",".","/s","/y" -NoNewWindow -Wait
 
           # cp "${{ env.Qt5_Dir }}/bin/*.dll" .
           # cp -recurse "${{ env.Qt5_Dir }}/plugins/*" .
           # cp -recurse "${{ env.Qt5_Dir }}/qml/*" .
-          
+
+          cd "$build_folder"
           dir
-          cd ..
-          dir
+          # cd ..
+          # dir
 
           Write-Host "1"
           Start-Process cmake -ArgumentList "-G ""Visual Studio 15 2017 Win64""",".." -NoNewWindow -Wait
