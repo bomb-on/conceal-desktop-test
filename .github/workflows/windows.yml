@@ -36,6 +36,7 @@ jobs:
           New-Item "$build_folder\$release_folder" -ItemType Dir
           cd "$build_folder\$release_folder"
           Write-Host "1"
+          dir
           Start-Process xcopy -ArgumentList "${{ env.Qt5_Dir }}\bin\*.dll",".","/s","/e","/y" -NoNewWindow -Wait
           Write-Host "2"
 
