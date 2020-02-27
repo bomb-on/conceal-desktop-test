@@ -25,7 +25,7 @@ jobs:
           BOOST_ROOT: ${{ env.BOOST_ROOT }}
         run: |
           $build_folder = "build"
-          $ccx_ver = "${{ github.ref }}" -replace '[refs/tags/v]'
+          $ccx_ver = "${{ github.ref }}" -replace '[refs/tags/]'
           $release_name = "ccx-desktop-win64-v$ccx_ver"
           $release_folder = "Release"
           $qt5_cmake = "${{ env.Qt5_Dir }}/lib/cmake" -replace '[/]', '\\'
