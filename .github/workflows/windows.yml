@@ -21,9 +21,16 @@ jobs:
       - name: Build
         shell: powershell
         id: build
-        env:
-          BOOST_ROOT: ""
         run: |
+          pushd "C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\Tools"
+          cmd /c "VsMSBuildCmd.bat&set" |
+          foreach {
+            if ($_ -match "=") {
+              $v = $_.split("="); set-item -force -path "ENV:\$($v[0])"  -value "$($v[1])"
+            }
+          }
+          popd
+          Write-Host "Visual Studio 2017 Command Prompt variables set."
           $build_folder = "build"
           $release_folder = "Release"
           $ccx_ver = "${{ github.ref }}" -replace 'refs/tags/'
@@ -49,11 +56,7 @@ jobs:
           # dir
 
           Write-Host "1"
-          Write-Host ${{ env.Boost_ROOT }}
-          Write-Host "1.5"
-          Write-Host ${{ env.BOOST_ROOT }}
-          Write-Host "1.9"
-          Start-Process cmake -ArgumentList "-G ""Visual Studio 15 2017 Win64"" -DBOOST_LIBRARYDIR:PATH=C:\hostedtoolcache\windows\Boost\1.69.0",".." -NoNewWindow -Wait
+          Start-Process cmake -ArgumentList "-G ""Visual Studio 15 2017 Win64""",".." -NoNewWindow -Wait
           Write-Host "2"
           Start-Process msbuild -ArgumentList "CONCEAL-GUI.sln","/p:Configuration=Release" -NoNewWindow -Wait
           Write-Host "3"
