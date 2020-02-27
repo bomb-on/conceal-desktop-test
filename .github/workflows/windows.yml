@@ -47,9 +47,9 @@ jobs:
           # dir
 
           Write-Host "1"
-          Start-Process cmake -ArgumentList "-G ""Visual Studio 15 2017 Win64"" .." -NoNewWindow -Wait
+          Start-Process cmake -ArgumentList "-G ""Visual Studio 15 2017 Win64""",".." -NoNewWindow
           Write-Host "2"
-          Start-Process msbuild -ArgumentList "CONCEAL-GUI.sln","/p:Configuration=Release" -NoNewWindow -Wait
+          Start-Process msbuild -ArgumentList "CONCEAL-GUI.sln","/p:Configuration=Release" -NoNewWindow
           Write-Host "3"
           
           dir
