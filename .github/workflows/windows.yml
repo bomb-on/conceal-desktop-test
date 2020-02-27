@@ -27,7 +27,7 @@ jobs:
           $release_name = "ccx-desktop-win64-v$ccx_ver"
           $release_folder = "Release"
           $qt5_cmake = "${{ env.Qt5_Dir }}/lib/cmake" -replace '[/]', '\\'
-          $qt5_bin = "${{ env.Qt5_Dir }}/bin"
+          # $qt5_bin = "${{ env.Qt5_Dir }}/bin"
           Remove-Item cryptonote -Recurse -ErrorAction Ignore
           git clone https://github.com/ConcealNetwork/conceal-core cryptonote
           $filecontent = Get-Content CMakeLists.txt
@@ -35,26 +35,26 @@ jobs:
 
           New-Item "$build_folder\$release_folder" -ItemType Dir
           cd "$build_folder\$release_folder"
-          Write-Host "1"
-          Write-Host "${{ env.Qt5_Dir }}\bin\*.dll"
-          dir
-          Start-Process xcopy -ArgumentList "${{ env.Qt5_Dir }}\bin\*.dll",".","/s","/y" -NoNewWindow -Wait
-          Write-Host "2"
+
+          # Start-Process xcopy -ArgumentList "${{ env.Qt5_Dir }}/bin/*.dll",".","/s","/y" -NoNewWindow -Wait
 
           # cp "${{ env.Qt5_Dir }}/bin/*.dll" .
           # cp -recurse "${{ env.Qt5_Dir }}/plugins/*" .
           # cp -recurse "${{ env.Qt5_Dir }}/qml/*" .
-          dir
-          cd ..
-
-          Start-Process cmake -ArgumentList "-G ""Visual Studio 15 2017 Win64""",".." -NoNewWindow -Wait
-          Write-Host "3"
-          Start-Process msbuild -ArgumentList "CONCEAL-GUI.sln","/p:Configuration=Release" -NoNewWindow -Wait
-          Write-Host "4"
           
           dir
-          Start-Process "$qt5_bin/windeployqt.exe" -ArgumentList "CONCEAL-GUI.exe" -NoNewWindow -Wait
+          cd ..
           dir
+
+          Write-Host "1"
+          Start-Process cmake -ArgumentList "-G ""Visual Studio 15 2017 Win64""",".." -NoNewWindow -Wait
+          Write-Host "2"
+          Start-Process msbuild -ArgumentList "CONCEAL-GUI.sln","/p:Configuration=Release" -NoNewWindow -Wait
+          Write-Host "3"
+          
+          dir
+          # Start-Process "$qt5_bin/windeployqt.exe" -ArgumentList "CONCEAL-GUI.exe" -NoNewWindow -Wait
+          # dir
 
           Compress-Archive -Path *.exe -DestinationPath "$release_name.zip"
           $sha256 = (Get-FileHash "$release_name.zip").Hash
