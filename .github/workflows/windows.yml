@@ -16,7 +16,7 @@ jobs:
         uses: warrenbuckley/Setup-MSBuild@v1
 
       - name: Install Qt
-        uses: jurplel/install-qt-action@ouuan
+        uses: ouuan/install-qt-action@ouuan
 
       - name: Build
         shell: powershell
