@@ -49,22 +49,20 @@ jobs:
           cd "$build_folder"
           # cd "$build_folder\$release_folder"
 
-          # Start-Process xcopy -ArgumentList "${{ env.Qt5_Dir }}/bin/*.dll",".","/s","/y" -NoNewWindow -Wait
+          # Start-Process xcopy -ArgumentList "${{ env.Qt5_Dir }}/bin/*.dll","$release_folder","/s","/y" -NoNewWindow -Wait
           # cp "${{ env.Qt5_Dir }}/bin/*.dll" .
           # cp -recurse "${{ env.Qt5_Dir }}/plugins/*" .
           # cp -recurse "${{ env.Qt5_Dir }}/qml/*" .
 
           Start-Process cmake -ArgumentList "-G ""Visual Studio 15 2017 Win64"" -DBOOST_ROOT=C:\hostedtoolcache\windows\Boost\1.69.0",".." -NoNewWindow -Wait
-          Write-Host "2"
           Start-Process msbuild -ArgumentList "CONCEAL-GUI.sln","/p:Configuration=Release" -NoNewWindow -Wait
-          Write-Host "3"
           
           dir
           # Start-Process "$qt5_bin/windeployqt.exe" -ArgumentList "CONCEAL-GUI.exe" -NoNewWindow -Wait
           # dir
 
-          Compress-Archive -Path *.exe -DestinationPath "$release_name.zip"
-          $sha256 = (Get-FileHash "$release_name.zip").Hash
+          Compress-Archive -Path *.exe -DestinationPath "$release_folder/$release_name.zip"
+          $sha256 = (Get-FileHash "$release_folder/$release_name.zip").Hash
           $asset_path = "./$build_folder/$release_folder/$release_name.zip"
           echo "::set-output name=sha256::${sha256}"
           echo "::set-output name=release_name::${release_name}.zip"
