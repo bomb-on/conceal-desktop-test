@@ -54,12 +54,7 @@ jobs:
           # cp -recurse "${{ env.Qt5_Dir }}/plugins/*" .
           # cp -recurse "${{ env.Qt5_Dir }}/qml/*" .
 
-          dir
-          # cd ..
-          # dir
-
-          Write-Host "1"
-          Start-Process cmake -ArgumentList "-G ""Visual Studio 15 2017 Win64""",".." -NoNewWindow -Wait
+          Start-Process cmake -ArgumentList "-G ""Visual Studio 15 2017 Win64"" -DBOOST_ROOT=C:\hostedtoolcache\windows\Boost\1.69.0",".." -NoNewWindow -Wait
           Write-Host "2"
           Start-Process msbuild -ArgumentList "CONCEAL-GUI.sln","/p:Configuration=Release" -NoNewWindow -Wait
           Write-Host "3"
