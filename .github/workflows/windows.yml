@@ -18,13 +18,18 @@ jobs:
       - name: Install Qt
         uses: ouuan/install-qt-action@v2.3.1
 
+
+      - name: Init VS
+        run: call "C:\\Program Files (x86)\\Microsoft Visual Studio\\2017\\Enterprise\\Common7\\Tools\\VsMSBuildCmd.bat"
+
       - name: Build
         shell: powershell
         id: build
-        env:
-          VCINSTALLDIR: "C:/Program Files (x86)/Microsoft Visual Studio/2017/Enterprise/"
-          BOOST_ROOT: ""
         run: |
+          Write-Host "${{ env.VS140COMNTOOLS }}"
+          Write-Host "${{ ENV.VS140COMNTOOLS }}"
+          Write-Host "${{ env.VCINSTALLDIR }}"
+          Write-Host "${{ ENV.VCINSTALLDIR }}"
           pushd "C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\Tools"
           cmd /c "VsMSBuildCmd.bat&set" |
           foreach {
