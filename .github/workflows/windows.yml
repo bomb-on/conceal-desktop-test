@@ -22,6 +22,18 @@ jobs:
         shell: powershell
         id: build
         run: |
+          cat "C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\Tools\VsMSBuildCmd.bat"
+          
+          pushd "C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\Tools"
+          cmd /c "VsMSBuildCmd.bat&set" |
+          foreach {
+            if ($_ -match "=") {
+              $v = $_.split("="); set-item -force -path "ENV:\$($v[0])"  -value "$($v[1])"
+            }
+          }
+          popd
+          Write-Host "Visual Studio 2017 Command Prompt variables set."
+
           $build_folder = "build"
           $release_folder = "Release"
           $ccx_ver = "${{ github.ref }}" -replace 'refs/tags/'
@@ -44,6 +56,7 @@ jobs:
           Copy-Item "${{ env.Qt5_Dir }}/bin/*" $release_folder -Filter *.dll -Recurse
           Copy-Item "${{ env.Qt5_Dir }}/plugins/*" $release_folder -Recurse
           Copy-Item "${{ env.Qt5_Dir }}/qml/*" $release_folder -Recurse
+          dir
 
           Start-Process cmake -ArgumentList "-G ""Visual Studio 15 2017 Win64""",".." -NoNewWindow -Wait
           Start-Process msbuild -ArgumentList "CONCEAL-GUI.sln","/p:Configuration=Release" -NoNewWindow -Wait
