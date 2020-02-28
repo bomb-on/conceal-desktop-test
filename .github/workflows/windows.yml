@@ -43,7 +43,7 @@ jobs:
           dir
           # cd "$build_folder\$release_folder"
 
-          Start-Process xcopy -ArgumentList "$qt5_dir ./$release_folder","/s","/y" -NoNewWindow -Wait
+          Start-Process xcopy -ArgumentList "$qt5_dir","./$release_folder","/s","/y" -NoNewWindow -Wait
           Write-Host "2"
           dir "./$release_folder"
           # cp "${{ env.Qt5_Dir }}/bin/*.dll" .
