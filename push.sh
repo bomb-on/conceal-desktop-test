@@ -3,4 +3,4 @@ git add .
 git commit -m "test"
 git tag $((last_version + 1))
 git push
-git push --tags
+git push origin $((last_version + 1))
