@@ -27,7 +27,7 @@ jobs:
           $ccx_ver = "${{ github.ref }}" -replace 'refs/tags/'
           $release_name = "ccx-desktop-win64-v$ccx_ver"
           $qt5_cmake = "${{ env.Qt5_Dir }}/lib/cmake" -replace '[/]', '\\'
-          $qt5_dir = "${{ env.Qt5_Dir }}/bin/*.dll"
+          $qt5_dir = "${{ env.Qt5_Dir }}/bin"
 
           # $qt5_bin = "${{ env.Qt5_Dir }}/bin"
           Remove-Item cryptonote -Recurse -ErrorAction Ignore
@@ -39,13 +39,16 @@ jobs:
           # $foldername = '{0}\{1}' -f $build_folder, $release_folder
           New-Item "$build_folder\$release_folder" -ItemType Directory
           cd "$build_folder"
+
           Write-Host "1"
           dir
-          # cd "$build_folder\$release_folder"
+          Write-Host "1.5"
 
-          Start-Process xcopy -ArgumentList "$qt5_dir","./$release_folder","/s","/y" -NoNewWindow -Wait
+          Copy-Item $qt5_dir $release_folder -Filter *.dll -Recurse
+
           Write-Host "2"
-          dir "./$release_folder"
+          dir "$release_folder"
+
           # cp "${{ env.Qt5_Dir }}/bin/*.dll" .
           # cp -recurse "${{ env.Qt5_Dir }}/plugins/*" .
           # cp -recurse "${{ env.Qt5_Dir }}/qml/*" .
