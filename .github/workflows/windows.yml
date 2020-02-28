@@ -39,14 +39,10 @@ jobs:
           $filecontent = Get-Content CMakeLists.txt
           $filecontent -replace '^set\(CMAKE_PREFIX_PATH.+',"set(CMAKE_PREFIX_PATH `"$($qt5_cmake)`")" | Set-Content CMakeLists.txt
 
-          Copy-Item "C:/Program Files (x86)/Microsoft Visual Studio 14.0/VC/*" "C:/Program Files (x86)/Microsoft Visual Studio 14.0/" -Recurse
-          dir "C:/Program Files (x86)/Microsoft Visual Studio 14.0/"
+          # Copy-Item "C:/Program Files (x86)/Microsoft Visual Studio 14.0/VC/*" "C:/Program Files (x86)/Microsoft Visual Studio 14.0/" -Recurse
+          # dir "C:/Program Files (x86)/Microsoft Visual Studio 14.0/"
 
           New-Item "$build_folder\$release_folder" -ItemType Directory
-
-          Copy-Item "${{ env.Qt5_Dir }}/bin/*" $build_folder -Filter *.dll -Recurse
-          Copy-Item "${{ env.Qt5_Dir }}/plugins/*" $build_folder -Recurse
-          Copy-Item "${{ env.Qt5_Dir }}/qml/*" $build_folder -Recurse
 
           cd "$build_folder"
           Copy-Item "${{ env.Qt5_Dir }}/bin/*" $release_folder -Filter *.dll -Recurse
@@ -54,11 +50,11 @@ jobs:
           Copy-Item "${{ env.Qt5_Dir }}/qml/*" $release_folder -Recurse
           # dir
 
-          Start-Process cmake -ArgumentList "-G ""Visual Studio 15 2017 Win64""",".." -NoNewWindow -Wait
+          Start-Process cmake -ArgumentList "-G ""Visual Studio 15 2017 Win64"" -DBOOST_LIBRARYDIR:PATH=C:\hostedtoolcache\windows\Boost\1.69.0",".." -NoNewWindow -Wait
           Start-Process msbuild -ArgumentList "CONCEAL-GUI.sln","/p:Configuration=Release" -NoNewWindow -Wait
           
           # dir "$release_folder"
-          Start-Process "${{ env.Qt5_Dir }}/bin/windeployqt.exe" -ArgumentList "$release_folder/CONCEAL-GUI.exe" -NoNewWindow -Wait
+          # Start-Process "${{ env.Qt5_Dir }}/bin/windeployqt.exe" -ArgumentList "$release_folder/CONCEAL-GUI.exe" -NoNewWindow -Wait
           dir "$release_folder"
 
           Compress-Archive -Path "$release_folder/*.exe" -DestinationPath "$release_folder/$release_name.zip"
