@@ -25,17 +25,17 @@ jobs:
           VCINSTALLDIR: "C:/Program Files (x86)/Microsoft Visual Studio/2017/Enterprise/"
           BOOST_ROOT: ""
         run: |
-          # Write-Host "${{ env.VS140COMNTOOLS }}"
-          # Write-Host "${{ env.VCINSTALLDIR }}"
-          pushd "C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\Tools"
-          cmd /c "VsMSBuildCmd.bat&set" |
-          foreach {
-            if ($_ -match "=") {
-              $v = $_.split("="); set-item -force -path "ENV:\$($v[0])"  -value "$($v[1])"
-              Write-Host "$v"
-            }
-          }
-          popd
+          Invoke-BatchFile "${env:C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\Tools\VsMSBuildCmd.bat"
+          # Import-VisualStudioVars -VisualStudioVersion 2017
+          # pushd "C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\Tools"
+          # cmd /c "VsMSBuildCmd.bat&set" |
+          # foreach {
+          #   if ($_ -match "=") {
+          #     $v = $_.split("="); set-item -force -path "ENV:\$($v[0])"  -value "$($v[1])"
+          #     Write-Host "$v"
+          #   }
+          # }
+          # popd
           Write-Host "${{ env.VS140COMNTOOLS }}"
           Write-Host "${{ ENV.VS140COMNTOOLS }}"
 
