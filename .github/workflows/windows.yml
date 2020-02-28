@@ -23,6 +23,7 @@ jobs:
         id: build
         env:
           VCINSTALLDIR: "C:/Program Files (x86)/Microsoft Visual Studio/2017/Enterprise/"
+          BOOST_ROOT: ""
         run: |
           Write-Host "${{ env.VS140COMNTOOLS }}"
           Write-Host "${{ env.VCINSTALLDIR }}"
