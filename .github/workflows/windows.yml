@@ -24,15 +24,33 @@ jobs:
         run: |
           Write-Host "${{ env.VisualStudioVersion }}"
           Write-Host "${{ env.VS140COMNTOOLS }}"
-          
-          pushd "C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\Tools"
-          cmd /c "VsMSBuildCmd.bat&set" |
-          foreach {
-            if ($_ -match "=") {
-              $v = $_.split("="); set-item -force -path "ENV:\$($v[0])"  -value "$($v[1])"
-            }
+
+          function Invoke-BatchFile
+          {
+              param([string]$Path, [string]$Parameters)
+
+              $tempFile = [IO.Path]::GetTempFileName()
+
+              ## Store the output of cmd.exe.  We also ask cmd.exe to output
+              ## the environment table after the batch file completes
+              cmd.exe /c " `"$Path`" $Parameters && set " > $tempFile
+
+              ## Go through the environment variables in the temp file.
+              ## For each of them, set the variable in our local environment.
+              Get-Content $tempFile | Foreach-Object {
+                  if ($_ -match "^(.*?)=(.*)$") {
+                      Set-Content "env:\$($matches[1])" $matches[2]
+                  }
+                  else {
+                      $_
+                  }
+              }
+
+              Remove-Item $tempFile
           }
-          popd
+          $VcVars = 'C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\Tools\VsMSBuildCmd.bat'
+          Invoke-BatchFile $VcVars
+          
           Write-Host "Visual Studio 2017 Command Prompt variables set."
           Write-Host "${{ env.VS140COMNTOOLS }}"
           Write-Host "${{ env.VisualStudioVersion }}"
