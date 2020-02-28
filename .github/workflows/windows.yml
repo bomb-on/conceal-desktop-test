@@ -34,10 +34,10 @@ jobs:
             }
           }
           popd
-          Write-Host "$env.VS140COMNTOOLS"
-          Write-Host "$ENV.VS140COMNTOOLS"
-          Write-Host "$env.VCINSTALLDIR"
-          Write-Host "$ENV.VCINSTALLDIR"
+          Write-Host ${{ env.VS140COMNTOOLS }}
+          Write-Host ${{ ENV.VS140COMNTOOLS }}
+          Write-Host ${{ env.VCINSTALLDIR }}
+          Write-Host ${{ ENV.VCINSTALLDIR }}
 
           $build_folder = "build"
           $release_folder = "Release"
