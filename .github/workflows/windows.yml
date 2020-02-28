@@ -38,11 +38,12 @@ jobs:
           $filecontent = Get-Content CMakeLists.txt
           $filecontent -replace '^set\(CMAKE_PREFIX_PATH.+',"set(CMAKE_PREFIX_PATH `"$($qt5_cmake)`")" | Set-Content CMakeLists.txt
 
-          New-Item "$build_folder" -ItemType Dir
+          New-Item "$build_folder\$release_folder" -ItemType Dir
           cd "$build_folder"
           # cd "$build_folder\$release_folder"
 
-          Start-Process xcopy -ArgumentList "$qt5_dir $release_folder","/s","/y" -NoNewWindow -Wait
+          Start-Process xcopy -ArgumentList "$qt5_dir","$release_folder","/s","/y" -NoNewWindow -Wait
+          dir "$build_folder\$release_folder"
           # cp "${{ env.Qt5_Dir }}/bin/*.dll" .
           # cp -recurse "${{ env.Qt5_Dir }}/plugins/*" .
           # cp -recurse "${{ env.Qt5_Dir }}/qml/*" .
