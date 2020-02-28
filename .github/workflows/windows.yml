@@ -22,16 +22,6 @@ jobs:
         shell: powershell
         id: build
         run: |
-          pushd "C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\Tools"
-          cmd /c "VsMSBuildCmd.bat&set" |
-          foreach {
-            if ($_ -match "=") {
-              $v = $_.split("="); set-item -force -path "ENV:\$($v[0])"  -value "$($v[1])"
-            }
-          }
-          popd
-          Write-Host "Visual Studio 2017 Command Prompt variables set."
-
           $build_folder = "build"
           $release_folder = "Release"
           $ccx_ver = "${{ github.ref }}" -replace 'refs/tags/'
@@ -49,12 +39,12 @@ jobs:
           cd "$build_folder"
           # cd "$build_folder\$release_folder"
 
-          # Start-Process xcopy -ArgumentList "${{ env.Qt5_Dir }}/bin/*.dll","$release_folder","/s","/y" -NoNewWindow -Wait
+          Start-Process xcopy -ArgumentList "${{ env.Qt5_Dir }}/bin/*.dll","$release_folder","/s","/y" -NoNewWindow -Wait
           # cp "${{ env.Qt5_Dir }}/bin/*.dll" .
           # cp -recurse "${{ env.Qt5_Dir }}/plugins/*" .
           # cp -recurse "${{ env.Qt5_Dir }}/qml/*" .
 
-          Start-Process cmake -ArgumentList "-G ""Visual Studio 15 2017 Win64"" -DBOOST_ROOT=C:\hostedtoolcache\windows\Boost\1.69.0",".." -NoNewWindow -Wait
+          Start-Process cmake -ArgumentList "-G ""Visual Studio 15 2017 Win64""",".." -NoNewWindow -Wait
           Start-Process msbuild -ArgumentList "CONCEAL-GUI.sln","/p:Configuration=Release" -NoNewWindow -Wait
           
           dir "$release_folder"
