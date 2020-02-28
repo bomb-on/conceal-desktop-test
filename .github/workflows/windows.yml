@@ -22,7 +22,7 @@ jobs:
         shell: powershell
         id: build
         env:
-          VCINSTALLDIR: ${{ env.VCINSTALLDIR }}
+          VCINSTALLDIR: ${{ env.VSINSTALLDIR }}
         run: |
           pushd "C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\Tools"
           cmd /c "VsMSBuildCmd.bat&set" |
