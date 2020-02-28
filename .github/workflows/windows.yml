@@ -23,7 +23,9 @@ jobs:
         id: build
         run: |
           cat "C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\Tools\VsMSBuildCmd.bat"
-          
+          Write-Host "------next------"
+          cat "%~dp0\vsdevcmd.bat"
+
           pushd "C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\Tools"
           cmd /c "VsMSBuildCmd.bat&set" |
           foreach {
