@@ -37,10 +37,8 @@ jobs:
           New-Item "$build_folder\$release_folder" -ItemType Directory
           cd "$build_folder"
 
-          Copy-Item "${{ env.Qt5_Dir }}/bin/*" $release_folder -Filter *.dll -Recurse
-
-          Write-Host "2"
-          dir "$release_folder"
+          Copy-Item "${{ env.Qt5_Dir }}/bin/*" $build_folder -Filter *.dll -Recurse
+          # Copy-Item "${{ env.Qt5_Dir }}/bin/*" $release_folder -Filter *.dll -Recurse
 
           # cp "${{ env.Qt5_Dir }}/bin/*.dll" .
           # cp -recurse "${{ env.Qt5_Dir }}/plugins/*" .
