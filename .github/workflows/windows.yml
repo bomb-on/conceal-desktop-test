@@ -83,8 +83,8 @@ jobs:
           Start-Process msbuild -ArgumentList "CONCEAL-GUI.sln","/p:Configuration=Release" -NoNewWindow -Wait
           
           dir "$release_folder"
-          # Start-Process "$qt5_bin/windeployqt.exe" -ArgumentList "CONCEAL-GUI.exe" -NoNewWindow -Wait
-          # dir
+          Start-Process "${{ env.Qt5_Dir }}/bin/windeployqt.exe" -ArgumentList "$release_folder/CONCEAL-GUI.exe" -NoNewWindow -Wait
+          dir "$release_folder"
 
           Compress-Archive -Path "$release_folder/*.exe" -DestinationPath "$release_folder/$release_name.zip"
           $sha256 = (Get-FileHash "$release_folder/$release_name.zip").Hash
