@@ -40,7 +40,7 @@ jobs:
           $filecontent = Get-Content CMakeLists.txt
           $filecontent -replace '^set\(CMAKE_PREFIX_PATH.+',"set(CMAKE_PREFIX_PATH `"$($qt5_cmake)`")" | Set-Content CMakeLists.txt
 
-          Copy-Item "C:/Program Files (x86)/Microsoft Visual Studio 14.0/VC" "C:/Program Files (x86)/Microsoft Visual Studio 14.0" -Recurse
+          Copy-Item "C:/Program Files (x86)/Microsoft Visual Studio 14.0/VC/" "C:/Program Files (x86)/Microsoft Visual Studio 14.0/" -Recurse
 
           New-Item "$build_folder\$release_folder" -ItemType Directory
 
