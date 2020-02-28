@@ -25,8 +25,7 @@ jobs:
           VCINSTALLDIR: "C:/Program Files (x86)/Microsoft Visual Studio/2017/Enterprise/"
           BOOST_ROOT: ""
         run: |
-          Import-VisualStudioVars -VisualStudioVersion 2017
-          
+          Invoke-BatchFile "${env:ProgramFiles(x86)}\Microsoft Visual Studio\2017\Enterprise\Common7\Tools\VsMSBuildCmd.bat"
           Write-Host "$env.VS140COMNTOOLS"
           Write-Host "$ENV.VS140COMNTOOLS"
           Write-Host "$env.VCINSTALLDIR"
