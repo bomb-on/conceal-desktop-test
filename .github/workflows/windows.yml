@@ -13,14 +13,13 @@ jobs:
       - uses: actions/checkout@master
 
       - name: Setup MSBuild.exe
-        uses: warrenbuckley/Setup-MSBuild@v1
+        uses: microsoft/setup-msbuild@v1.0.0
 
       - name: Install Qt
         uses: ouuan/install-qt-action@v2.3.1
 
-
-      - name: Init VS
-        run: call "C:\\Program Files (x86)\\Microsoft Visual Studio\\2017\\Enterprise\\Common7\\Tools\\VsMSBuildCmd.bat"
+      # - name: Init VS
+      #   run: call "C:\\Program Files (x86)\\Microsoft Visual Studio\\2017\\Enterprise\\Common7\\Tools\\VsMSBuildCmd.bat"
 
       - name: Build
         shell: powershell
