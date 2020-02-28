@@ -26,7 +26,6 @@ jobs:
         run: |
           Write-Host "${{ env.VS140COMNTOOLS }}"
           Write-Host "${{ env.VCINSTALLDIR }}"
-          Write-Host "${{ env.VisualStudioVersion }}"
 
           $build_folder = "build"
           $release_folder = "Release"
