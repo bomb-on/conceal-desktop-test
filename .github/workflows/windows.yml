@@ -21,6 +21,8 @@ jobs:
       - name: Build
         shell: powershell
         id: build
+        env:
+          VCINSTALLDIR: ${{ env.VCINSTALLDIR }}
         run: |
           Write-Host "${{ env.VisualStudioVersion }}"
           Write-Host "${{ env.VS140COMNTOOLS }}"
