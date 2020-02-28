@@ -39,11 +39,13 @@ jobs:
           # $foldername = '{0}\{1}' -f $build_folder, $release_folder
           New-Item "$build_folder\$release_folder" -ItemType Directory
           cd "$build_folder"
+          Write-Host "1"
           dir
           # cd "$build_folder\$release_folder"
 
-          Start-Process xcopy -ArgumentList "$qt5_dir $release_folder","/s","/y" -NoNewWindow -Wait
-          dir "$release_folder"
+          Start-Process xcopy -ArgumentList "$qt5_dir ./$release_folder","/s","/y" -NoNewWindow -Wait
+          Write-Host "2"
+          dir "./$release_folder"
           # cp "${{ env.Qt5_Dir }}/bin/*.dll" .
           # cp -recurse "${{ env.Qt5_Dir }}/plugins/*" .
           # cp -recurse "${{ env.Qt5_Dir }}/qml/*" .
