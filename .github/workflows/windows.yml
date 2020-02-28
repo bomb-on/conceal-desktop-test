@@ -27,7 +27,9 @@ jobs:
           $ccx_ver = "${{ github.ref }}" -replace 'refs/tags/'
           $release_name = "ccx-desktop-win64-v$ccx_ver"
           $qt5_cmake = "${{ env.Qt5_Dir }}/lib/cmake" -replace '[/]', '\\'
-          $qt5_dir = "${{ env.Qt5_Dir }}/bin/*.dll" -replace '[/]', '\'
+          $qt5_dir = "${{ env.Qt5_Dir }}/bin/*.dll"
+
+          dir "${{ env.Qt5_Dir }}/bin/"
 
           # $qt5_bin = "${{ env.Qt5_Dir }}/bin"
           Remove-Item cryptonote -Recurse -ErrorAction Ignore
