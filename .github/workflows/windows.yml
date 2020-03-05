@@ -19,6 +19,7 @@ jobs:
       - name: Install Qt
         uses: jurplel/install-qt-action@v2
         with:
+          version: '5.11.0'
           mirror: 'http://mirrors.ocf.berkeley.edu/qt/'
         # uses: ouuan/install-qt-action@v2.3.1
 
