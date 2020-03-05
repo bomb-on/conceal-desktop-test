@@ -17,7 +17,8 @@ jobs:
         uses: warrenbuckley/Setup-MSBuild@v1
 
       - name: Install Qt
-        uses: ouuan/install-qt-action@v2.3.1
+        uses: jurplel/install-qt-action@v2
+        # uses: ouuan/install-qt-action@v2.3.1
 
       # - name: Init VS
       #   run: call "C:\\Program Files (x86)\\Microsoft Visual Studio\\2017\\Enterprise\\Common7\\Tools\\VsMSBuildCmd.bat"
