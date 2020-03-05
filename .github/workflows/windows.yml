@@ -66,21 +66,21 @@ jobs:
           New-Item "$build_folder\$release_folder" -ItemType Directory
           cd "$build_folder"
 
-          Copy-Item "C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\VC\Redist\MSVC\14.16.27012\x64\Microsoft.VC141.CRT\msvcp140.dll" $release_folder
-          Copy-Item "C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\VC\Redist\MSVC\14.16.27012\x64\Microsoft.VC141.CRT\vccorlib140.dll" $release_folder
-          Copy-Item "C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\VC\Redist\MSVC\14.16.27012\x64\Microsoft.VC141.CRT\vcruntime140.dll" $release_folder
+          # Copy-Item "C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\VC\Redist\MSVC\14.16.27012\x64\Microsoft.VC141.CRT\msvcp140.dll" $release_folder
+          # Copy-Item "C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\VC\Redist\MSVC\14.16.27012\x64\Microsoft.VC141.CRT\vccorlib140.dll" $release_folder
+          # Copy-Item "C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\VC\Redist\MSVC\14.16.27012\x64\Microsoft.VC141.CRT\vcruntime140.dll" $release_folder
           
           # Copy-Item "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\redist\x64\Microsoft.VC140.CRT\msvcp140.dll" $release_folder
           # Copy-Item "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\redist\x64\Microsoft.VC140.CRT\vccorlib140.dll" $release_folder
           # Copy-Item "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\redist\x64\Microsoft.VC140.CRT\vcruntime140.dll" $release_folder
 
-          # Copy-Item "C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\VC\Tools\MSVC\14.16.27023\bin\Hostx64\x64\msvcp140.dll" $release_folder
-          # Copy-Item "C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\VC\Tools\MSVC\14.16.27023\bin\Hostx64\x64\vccorlib140.dll" $release_folder
-          # Copy-Item "C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\VC\Tools\MSVC\14.16.27023\bin\Hostx64\x64\vcruntime140.dll" $release_folder
+          Copy-Item "C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\VC\Tools\MSVC\14.16.27023\bin\Hostx64\x64\msvcp140.dll" $release_folder
+          Copy-Item "C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\VC\Tools\MSVC\14.16.27023\bin\Hostx64\x64\vccorlib140.dll" $release_folder
+          Copy-Item "C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\VC\Tools\MSVC\14.16.27023\bin\Hostx64\x64\vcruntime140.dll" $release_folder
           # "C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\Tools\vcruntime140.dll"
 
           Copy-Item "C:/Program Files (x86)/Microsoft Visual Studio/2017/Enterprise/VC/Redist" "C:/Program Files (x86)/Microsoft Visual Studio/2017/Enterprise/" -Recurse
-          Copy-Item "C:/Program Files (x86)/Microsoft Visual Studio 14.0/VC/redist" "C:/Program Files (x86)/Microsoft Visual Studio 14.0/" -Recurse
+          # Copy-Item "C:/Program Files (x86)/Microsoft Visual Studio 14.0/VC/redist" "C:/Program Files (x86)/Microsoft Visual Studio 14.0/" -Recurse
           # Copy-Item "${{ env.Qt5_Dir }}/bin/*" $release_folder -Filter *.dll -Recurse
           # Copy-Item "${{ env.Qt5_Dir }}/plugins/*" $release_folder -Recurse
           # Copy-Item "${{ env.Qt5_Dir }}/qml/*" $release_folder -Recurse
