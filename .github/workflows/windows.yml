@@ -35,8 +35,8 @@ jobs:
         env:
           VCINSTALLDIR: "C:/Program Files (x86)/Microsoft Visual Studio/2017/Enterprise/"
           # VS140COMNTOOLS: "C:/Program Files (x86)/Microsoft Visual Studio 14.0/Common7/Tools/"
-          VS140COMNTOOLS: "C:/Program Files (x86)/Microsoft Visual Studio/2017/Enterprise/Common7/Tools"
-          MSVC_REDIST_DIR: "C:/Program Files (x86)/Microsoft Visual Studio/2017/Enterprise/VC/Redist/"
+          # VS140COMNTOOLS: "C:/Program Files (x86)/Microsoft Visual Studio/2017/Enterprise/Common7/Tools"
+          # MSVC_REDIST_DIR: "C:/Program Files (x86)/Microsoft Visual Studio/2017/Enterprise/VC/Redist/"
           # MSVC_REDIST_DIR: "C:/Program Files (x86)/Microsoft Visual Studio 14.0/VC/redist/"
           BOOST_ROOT: ""
         run: |
@@ -82,9 +82,9 @@ jobs:
           Copy-Item "C:/Program Files (x86)/Microsoft Visual Studio/2017/Enterprise/VC/Redist" "C:/Program Files (x86)/Microsoft Visual Studio/2017/Enterprise/" -Recurse
           # Copy-Item "C:/Program Files (x86)/Microsoft Visual Studio 14.0/VC/redist" "C:/Program Files (x86)/Microsoft Visual Studio 14.0/" -Recurse
           
-          Copy-Item "${{ env.Qt5_Dir }}/bin/*" $release_folder -Filter *.dll -Recurse
-          Copy-Item "${{ env.Qt5_Dir }}/plugins/*" $release_folder -Recurse
-          Copy-Item "${{ env.Qt5_Dir }}/qml/*" $release_folder -Recurse
+          # Copy-Item "${{ env.Qt5_Dir }}/bin/*" $release_folder -Filter *.dll -Recurse
+          # Copy-Item "${{ env.Qt5_Dir }}/plugins/*" $release_folder -Recurse
+          # Copy-Item "${{ env.Qt5_Dir }}/qml/*" $release_folder -Recurse
           # dir
 
           Start-Process cmake -ArgumentList "-G ""Visual Studio 15 2017 Win64"" -DBOOST_LIBRARYDIR:PATH=C:\hostedtoolcache\windows\Boost\1.69.0 .." -NoNewWindow -Wait
