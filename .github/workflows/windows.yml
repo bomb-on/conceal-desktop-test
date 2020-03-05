@@ -30,15 +30,9 @@ jobs:
         shell: powershell
         id: build
         env:
+          VCINSTALLDIR: "C:/Program Files (x86)/Microsoft Visual Studio/2017/Enterprise/"
           BOOST_ROOT: ""
         run: |
-          gci -Recurse -Filter "msvcp140.dll" -File -ErrorAction SilentlyContinue -Path "C:\"
-          gci -Recurse -Filter "vccorlib140.dll" -File -ErrorAction SilentlyContinue -Path "C:\"
-          gci -Recurse -Filter "vcruntime140.dll" -File -ErrorAction SilentlyContinue -Path "C:\"
-          
-          gci -Recurse -Filter "mvscr90.dll" -File -ErrorAction SilentlyContinue -Path "C:\"
-          gci -Recurse -Filter "QWINDOWS.dll" -File -ErrorAction SilentlyContinue -Path "C:\"
-
           Write-Host "${{ env.VS140COMNTOOLS }}"
           Write-Host "${{ ENV.VS140COMNTOOLS }}"
           Write-Host "${{ env.VCINSTALLDIR }}"
@@ -49,7 +43,7 @@ jobs:
             if ($_ -match "=") {
               $v = $_.split("="); set-item -force -path "ENV:\$($v[0])"  -value "$($v[1])"
               # echo ::set-env name=$($v[0])::$($v[1])
-              # Write-Host "$v"
+              Write-Host "$v"
             }
           }
           popd
@@ -68,9 +62,15 @@ jobs:
 
           New-Item "$build_folder\$release_folder" -ItemType Directory
           cd "$build_folder"
-          Copy-Item "${{ env.Qt5_Dir }}/bin/*" $release_folder -Filter *.dll -Recurse
-          Copy-Item "${{ env.Qt5_Dir }}/plugins/*" $release_folder -Recurse
-          Copy-Item "${{ env.Qt5_Dir }}/qml/*" $release_folder -Recurse
+
+          Copy-Item "C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\VC\Redist\MSVC\14.16.27012\x64\Microsoft.VC141.CRT\msvcp140.dll" $release_folder
+          Copy-Item "C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\VC\Redist\MSVC\14.16.27012\x64\Microsoft.VC141.CRT\vccorlib140.dll" $release_folder
+          Copy-Item "C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\VC\Redist\MSVC\14.16.27012\x64\Microsoft.VC141.CRT\vcruntime140.dll" $release_folder
+          # "C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\Tools\vcruntime140.dll"
+
+          # Copy-Item "${{ env.Qt5_Dir }}/bin/*" $release_folder -Filter *.dll -Recurse
+          # Copy-Item "${{ env.Qt5_Dir }}/plugins/*" $release_folder -Recurse
+          # Copy-Item "${{ env.Qt5_Dir }}/qml/*" $release_folder -Recurse
           # dir
 
           Start-Process cmake -ArgumentList "-G ""Visual Studio 15 2017 Win64"" -DBOOST_LIBRARYDIR:PATH=C:\hostedtoolcache\windows\Boost\1.69.0 .." -NoNewWindow -Wait
